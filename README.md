@@ -1,0 +1,1 @@
+SimpleSAML==========Installation------------The best way to install Trejjam/SimpleSAMLExtension is using  [Composer](http://getcomposer.org/):```sh$ composer require trejjam/simple-saml```Configuration-------------.neon```ymlextensions:	simpleSAML: Trejjam\SimpleSAML\DI\SimpleSAMLExtension```
