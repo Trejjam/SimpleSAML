@@ -1,0 +1,40 @@
+{
+	"name": "trejjam/simple-saml",
+	"description": "Integration SimpleSAML IdP to Nette",
+	"keywords": [
+		"nette",
+		"simpleSAML"
+	],
+	"license": [
+		"MIT"
+	],
+	"authors": [
+		{
+			"name": "Jan Trejbal"
+		}
+	],
+	"require": {
+		"php": ">=5.4",
+		"nette/di": "~2.3",
+		"simplesamlphp/simplesamlphp": "dev-master#749049602d68bcd2ebd71547bb6187366983f800 as 1.13.2.1",
+		"trejjam/base-extension": "~0.5.0"
+	},
+	"require-dev": {
+		"nette/tester": "@dev",
+		"nette/application": "@dev",
+		"tracy/tracy": "@dev"
+	},
+	"autoload": {
+		"psr-4": {
+			"Trejjam\\SimpleSAML\\": "src/"
+		},
+		"classmap": [
+			"src/exceptions.php"
+		]
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "v0.6.x-dev"
+		}
+	}
+}
