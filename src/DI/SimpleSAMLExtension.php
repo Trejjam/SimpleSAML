@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Trejjam\SimpleSAML\DI;
 
@@ -7,7 +8,7 @@ use Trejjam;
 class SimpleSAMLExtension extends Trejjam\BaseExtension\DI\BaseExtension
 {
 	protected $default = [
-		'configurationDir'  => '%appDir%/config/simpleSAML/config',
+		'configurationDir'  => 'config/simpleSAML/config',
 		'configurationFile' => 'config.php',
 		'authsourcesFile'   => 'authsources.php', //unused
 	];
@@ -16,21 +17,26 @@ class SimpleSAMLExtension extends Trejjam\BaseExtension\DI\BaseExtension
 		'configure' => 'Trejjam\SimpleSAML\Bridges\Configure',
 	];
 
+	public function loadConfiguration(bool $validateConfig = TRUE) : void
+	{
+		$this->default['configurationDir'] = $this->getContainerBuilder()->parameters['appDir'] . DIRECTORY_SEPARATOR . $this->default['configurationDir'];
+
+		parent::loadConfiguration($validateConfig);
+	}
+
 	public function beforeCompile()
 	{
 		parent::beforeCompile();
 
-		$config = $this->createConfig();
-
-		$classes = $this->getClasses();
-		$classes['configure']->setArguments(
+		$types = $this->getTypes();
+		$types['configure']->setArguments(
 			[
-				$config['configurationDir'],
+				$this->config['configurationDir'],
 			]
 		);
-		$classes['configure']->addTag('run');
+		$types['configure']->addTag('run');
 
-		$this->createDirectories($config);
+		$this->createDirectories($this->config);
 	}
 
 	private function createDirectories(array $extensionConfig)
